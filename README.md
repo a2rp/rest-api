@@ -2,6 +2,8 @@
 
 A focused backend project demonstrating REST API fundamentals using Node.js and Express.
 
+![REST API Demo](preview.gif)
+
 ## Tech Stack
 
 - Node.js
@@ -32,7 +34,7 @@ Base URL: `http://localhost:1198`
 
 ## API Testing
 
-This project includes a `requests.http` file for testing endpoints directly inside VS Code using the REST Client extension.
+Use the included `requests.http` file to test all API endpoints directly from VS Code with the REST Client extension.
 
 ## License
 
