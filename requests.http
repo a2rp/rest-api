@@ -1,0 +1,81 @@
+###############################################################################
+# REST API
+###############################################################################
+
+### 1. API Health Check
+# Verify that the REST API server is running.
+GET http://localhost:1198/
+
+###############################################################################
+
+### 2. Fetch All Books
+# Retrieve all available books.
+GET http://localhost:1198/books
+
+###############################################################################
+
+### 3. Fetch Book by ID
+# Retrieve the book with ID 1.
+GET http://localhost:1198/books/1
+
+###############################################################################
+
+### 4. Create a New Book
+# Add a new book to the collection.
+POST http://localhost:1198/books
+Content-Type: application/json
+
+{
+    "title": "Atomic Habits",
+    "author": "James Clear"
+}
+
+###############################################################################
+
+### 5. Verify the New Book
+# Retrieve all books to confirm the new book was added.
+GET http://localhost:1198/books
+
+###############################################################################
+
+### 6. Fetch the Newly Created Book
+# Retrieve the newly created book using its ID.
+GET http://localhost:1198/books/3
+
+###############################################################################
+
+### 7. Update the Book
+# Update the title and author of the newly created book.
+PUT http://localhost:1198/books/3
+Content-Type: application/json
+
+{
+    "title": "Atomic Habits - Updated Edition",
+    "author": "James Clear"
+}
+
+###############################################################################
+
+### 8. Verify the Updated Book
+# Confirm that the book details were updated.
+GET http://localhost:1198/books/3
+
+###############################################################################
+
+### 9. Delete the Book
+# Remove the book from the collection.
+DELETE http://localhost:1198/books/3
+
+###############################################################################
+
+### 10. Verify the Deletion
+# Attempt to retrieve the deleted book.
+GET http://localhost:1198/books/3
+
+###############################################################################
+
+### 11. Fetch All Books
+# Confirm that the deleted book no longer exists.
+GET http://localhost:1198/books
+
+###############################################################################

@@ -30,6 +30,10 @@ Base URL: `http://localhost:1198`
 | PUT    | `/books/:id` | Update an existing book |
 | DELETE | `/books/:id` | Delete an existing book |
 
+## API Testing
+
+This project includes a `requests.http` file for testing endpoints directly inside VS Code using the REST Client extension.
+
 ## License
 
 MIT
