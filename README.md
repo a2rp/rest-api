@@ -18,11 +18,17 @@ npm run dev
 
 Development Port: **1198**
 
-Base URL:
+Base URL: `http://localhost:1198`
 
-```text
-http://localhost:1198
-```
+## API Endpoints
+
+| Method | Endpoint     | Description             |
+| ------ | ------------ | ----------------------- |
+| GET    | `/books`     | Fetch all books         |
+| GET    | `/books/:id` | Fetch a single book     |
+| POST   | `/books`     | Create a new book       |
+| PUT    | `/books/:id` | Update an existing book |
+| DELETE | `/books/:id` | Delete an existing book |
 
 ## License
 
@@ -32,7 +38,7 @@ MIT
 
 If you find this project helpful, consider supporting my work:
 
-❤️ https://a2rp-donation-page.netlify.app/
+❤️ [Support My Work](https://a2rp-donation-page.netlify.app/)
 
 ## Connect with Me
 

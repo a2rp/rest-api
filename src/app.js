@@ -23,5 +23,8 @@ app.use(express.urlencoded({ extended: true }));
 // Register application routes
 app.use("/", indexRoutes);
 
+// Register book routes
+app.use("/books", require("./routes/book.routes"));
+
 // Export the Express application
 module.exports = app;
