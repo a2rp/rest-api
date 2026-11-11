@@ -11,6 +11,8 @@ A focused backend project demonstrating REST API fundamentals using Node.js and 
 
 ## Getting Started
 
+Use Node.js 22 or newer.
+
 ```bash
 npm install
 npm run dev
@@ -31,6 +33,8 @@ Base URL: `http://localhost:1198`
 | POST   | `/books`     | Create a new book       |
 | PUT    | `/books/:id` | Update an existing book |
 | DELETE | `/books/:id` | Delete an existing book |
+
+Create and update requests require non-empty `title` and `author` strings. Book IDs must be positive integers. The collection is held in memory and resets when the server restarts. Unknown routes and malformed JSON return JSON error responses.
 
 ## API Testing
 

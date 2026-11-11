@@ -2,9 +2,9 @@
     "name": "rest-api",
     "version": "1.0.0",
     "description": "A focused backend project demonstrating REST API fundamentals using Node.js and Express.",
-    "main": "server.js",
+    "main": "src/server.js",
     "scripts": {
-        "dev": "nodemon src/server.js",
+        "dev": "node --watch src/server.js",
         "start": "node src/server.js"
     },
     "keywords": [
@@ -16,11 +16,11 @@
     "author": "Ashish Ranjan",
     "license": "MIT",
     "type": "commonjs",
+    "engines": {
+        "node": ">=22.0.0"
+    },
     "dependencies": {
         "dotenv": "^17.4.2",
         "express": "^5.2.1"
-    },
-    "devDependencies": {
-        "nodemon": "^3.1.14"
     }
 }

@@ -18,6 +18,33 @@ const books = [
         author: "Andrew Hunt and David Thomas",
     },
 ];
+let nextBookId = Math.max(0, ...books.map((book) => book.id)) + 1;
+
+const parseBookId = (value) => {
+    if (!/^[1-9]\d*$/.test(value)) {
+        return null;
+    }
+
+    const id = Number(value);
+    return Number.isSafeInteger(id) ? id : null;
+};
+
+const getBookFields = (body) => {
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+        return null;
+    }
+
+    const fields = {};
+    for (const name of ["title", "author"]) {
+        const value = body[name];
+        if (typeof value !== "string" || !value.trim()) {
+            return null;
+        }
+        fields[name] = value.trim();
+    }
+
+    return fields;
+};
 
 // Handle GET requests to fetch all books
 const getBooks = (req, res) => {
@@ -33,8 +60,13 @@ const getBooks = (req, res) => {
  * Handle GET requests to fetch a single book by its ID
  */
 const getBookById = (req, res) => {
-    // Convert the route parameter into a number
-    const id = Number(req.params.id);
+    const id = parseBookId(req.params.id);
+    if (id === null) {
+        return res.status(400).json({
+            success: false,
+            message: "Book ID must be a positive integer.",
+        });
+    }
 
     // Find the matching book
     const book = books.find((book) => book.id === id);
@@ -59,22 +91,17 @@ const getBookById = (req, res) => {
  * Handle POST requests to create a new book
  */
 const createBook = (req, res) => {
-    // Read title and author from the request body
-    const { title, author } = req.body;
-
-    // Return a 400 response if title or author is missing
-    if (!title || !author) {
+    const fields = getBookFields(req.body);
+    if (!fields) {
         return res.status(400).json({
             success: false,
-            message: "Title and author are required.",
+            message: "Title and author must be non-empty strings.",
         });
     }
 
-    // Create a new book object
     const newBook = {
-        id: books.length + 1,
-        title,
-        author,
+        id: nextBookId++,
+        ...fields,
     };
 
     // Add the new book to the in-memory books array
@@ -92,16 +119,15 @@ const createBook = (req, res) => {
  * Handle PUT requests to update an existing book
  */
 const updateBook = (req, res) => {
-    // Convert the route parameter into a number
-    const id = Number(req.params.id);
+    const id = parseBookId(req.params.id);
+    if (id === null) {
+        return res.status(400).json({
+            success: false,
+            message: "Book ID must be a positive integer.",
+        });
+    }
 
-    // Read updated values from the request body
-    const { title, author } = req.body;
-
-    // Find the matching book
     const book = books.find((book) => book.id === id);
-
-    // Return a 404 response if the book does not exist
     if (!book) {
         return res.status(404).json({
             success: false,
@@ -109,15 +135,15 @@ const updateBook = (req, res) => {
         });
     }
 
-    // Update the book title if provided
-    if (title) {
-        book.title = title;
+    const fields = getBookFields(req.body);
+    if (!fields) {
+        return res.status(400).json({
+            success: false,
+            message: "Provide non-empty title and author strings.",
+        });
     }
 
-    // Update the book author if provided
-    if (author) {
-        book.author = author;
-    }
+    Object.assign(book, fields);
 
     // Return the updated book
     res.status(200).json({
@@ -131,8 +157,13 @@ const updateBook = (req, res) => {
  * Handle DELETE requests to remove an existing book
  */
 const deleteBook = (req, res) => {
-    // Convert the route parameter into a number
-    const id = Number(req.params.id);
+    const id = parseBookId(req.params.id);
+    if (id === null) {
+        return res.status(400).json({
+            success: false,
+            message: "Book ID must be a positive integer.",
+        });
+    }
 
     // Find the index of the matching book
     const bookIndex = books.findIndex((book) => book.id === id);
